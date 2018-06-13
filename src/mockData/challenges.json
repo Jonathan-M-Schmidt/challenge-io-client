@@ -1,0 +1,26 @@
+[
+	{
+		"_id": "52745asgs346dgbl72dfhfsd27457",
+		"name": "weightloss",
+		"bannerImg": "https://images.ecosia.org/eFLcHFs8gIFo5zF3uvJiTAnmYxQ=/0x390/smart/http%3A%2F%2Ffiles.snacktools.net.s3.amazonaws.com%2Fsnacktools%2Fsite%2Fblog%2F2015%2Fcreativity%2520challenge%2520for%25202016%2520Bannersnack.png",
+		"datefrom": 1525910400,
+		"datetill": 1529452800,
+		"description": "Challenge to determine who looses the most weight in the given time."
+	},
+	{
+		"_id": "afa786asfb21231bbf0",
+		"name": "runners high",
+		"bannerImg": "https://images.ecosia.org/BolcIxFxpdr1Vhi69yviBTiD8A0=/0x390/smart/https%3A%2F%2Fwww.ordnancesurvey.co.uk%2Fgetoutside%2Fsite%2Fuploads%2Fimages%2Fassets%2Fultra-running-banner-image.jpg",
+		"datefrom": 1525910400,
+		"datetill": 1529452800,
+		"description": "Run the most miles in the given timespan to win!"
+	},
+	{
+		"_id": "uhsdfg7628354235blb3j25",
+		"name": "time frame",
+		"bannerImg": "https://images.ecosia.org/nXhoUxeLThePjfh8vHK1nFsp7ks=/0x390/smart/https%3A%2F%2Fwww.matrixaccesscontrol.com%2Fimages%2Fadd-on-time-attendance-banner.jpg",
+		"datefrom": 1525910400,
+		"datetill": 1529452800,
+		"description": "Show your reaction time!"
+	}
+]

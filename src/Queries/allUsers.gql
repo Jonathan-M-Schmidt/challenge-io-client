@@ -1,0 +1,7 @@
+{
+	getAllUsers {
+		_id
+		name
+		email
+	}
+}
