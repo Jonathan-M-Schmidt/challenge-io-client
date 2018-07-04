@@ -3,7 +3,7 @@
 		<img src="../assets/logo.png">
 		<HelloWorld msg="Welcome to Your Vue.js App" />
 		<div
-			v-for="user in getAllUsers"
+			v-for="user in allUsers"
 			:key="user._id">
 			<p>{{ user.name }}</p>
 			<p>{{ user.email }}</p>
@@ -13,9 +13,8 @@
 
 <script>
 // @ is an alias to /src
-	// import gql from 'graphql-tag';
 	import HelloWorld from '@/components/HelloWorld.vue';
-	import getAllUsers from '@/Queries/allUsers.gql';
+	import allUsers from '@/Queries/allUsers.gql';
 
 	export default {
 		name: 'Home',
@@ -24,11 +23,11 @@
 		},
 		data() {
 			return {
-				getAllUsers: [],
+				allUsers: [],
 			};
 		},
 		apollo: {
-			getAllUsers,
+			allUsers,
 		},
 	};
 </script>

@@ -1,3 +1,5 @@
+/* TODO: Refactor Friend-Card to seperate component
+and move Friends.vue to view folder */
 <template>
 	<div>
 		<h2>Friends:</h2>
@@ -42,7 +44,7 @@
 	import friends from '@/mockData/friends.json';
 
 	export default {
-		name: 'UserInfo',
+		name: 'Friends',
 		data() {
 			return {
 				friends,

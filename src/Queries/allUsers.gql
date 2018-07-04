@@ -1,5 +1,5 @@
 {
-	getAllUsers {
+	allUsers {
 		_id
 		name
 		email

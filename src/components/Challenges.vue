@@ -38,7 +38,8 @@
 
 <script>
 	// import challenges from '@/mockData/challenges.json';
-	import getAllChallenges from '@/Queries/allChallenges';
+	import allChallenges from '@/Queries/allChallenges';
+	import isExpired from './helper/isExpired';
 
 	export default {
 		name: 'Challanges',
@@ -49,24 +50,17 @@
 			};
 		},
 		methods: {
-			isExpired( date ) {
-				const now = new Date().valueOf();
-				const incoming = new Date( date ).valueOf();
-				if ( now > incoming.valueOf() ) {
-					return true;
-				}
-				return false;
-			},
+			isExpired,
 		},
 		apollo: {
-			getAllChallenges: {
-				query: getAllChallenges,
+			allChallenges: {
+				query: allChallenges,
 				manual: true,
 				result( { data, loading } ) {
 					if ( loading ) {
 						this.loading = true;
 					} else {
-						this.challenges = data.getAllChallenges;
+						this.challenges = data.allChallenges;
 					}
 				},
 			},
