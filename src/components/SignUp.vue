@@ -38,14 +38,6 @@
 					required
 					placeholder="Enter Password"/>
 			</b-form-group>
-			<b-form-group id="exampleGroup4">
-				<b-form-checkbox-group
-					id="exampleChecks"
-					v-model="form.checked">
-					<b-form-checkbox value="me">Check me out</b-form-checkbox>
-					<b-form-checkbox value="that">Check that out</b-form-checkbox>
-				</b-form-checkbox-group>
-			</b-form-group>
 			<b-button
 				class="mr-2"
 				type="submit"
@@ -54,10 +46,15 @@
 				type="reset"
 				variant="danger">Reset</b-button>
 		</b-form>
+		<h3 v-if="response">
+			{{ response }}
+		</h3>
 	</div>
 </template>
 
 <script>
+	import signUp from '@/Mutations/signUp.js';
+
 	export default {
 		data() {
 			return {
@@ -65,15 +62,35 @@
 					email: '',
 					name: '',
 					password: '',
-					checked: [],
 				},
 				show: true,
+				response: '',
 			};
 		},
 		methods: {
 			onSubmit( evt ) {
 				evt.preventDefault();
-				alert( JSON.stringify( this.form ) );
+				const { email, name, password } = this.form;
+
+				this.$apollo.mutate( {
+					mutation: signUp,
+					variables: {
+						email,
+						name,
+						password,
+					},
+				} ).then( ( { data } ) => {
+					if ( localStorage ) {
+						localStorage.setItem( 'token', data.userCreate.token );
+					}
+					this.show = false;
+					this.response = `Hello ${ data.userCreate.user.name },
+					thank you for creating an account!`;
+				} ).catch( ( error ) => {
+					console.log( error );
+					this.form.email = email;
+					this.form.name = name;
+				} );
 			},
 			onReset( evt ) {
 				evt.preventDefault();

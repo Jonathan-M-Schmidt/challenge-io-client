@@ -37,7 +37,6 @@
 </template>
 
 <script>
-	// import challenges from '@/mockData/challenges.json';
 	import allChallenges from '@/Queries/allChallenges';
 	import isExpired from './helper/isExpired';
 
