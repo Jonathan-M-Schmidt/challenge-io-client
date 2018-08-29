@@ -70,7 +70,7 @@
 
 <script>
 	import signUp from '@/Mutations/signUp.js';
-	import login from '@/Mutations/login.js';
+	import login from '@/Queries/login.js';
 
 	export default {
 		data() {
@@ -110,8 +110,8 @@
 						this.form.name = name;
 					} );
 				} else if ( this.login ) {
-					this.$apollo.mutate( {
-						mutation: login,
+					this.$apollo.query( {
+						query: login,
 						variables: {
 							email,
 							password,
