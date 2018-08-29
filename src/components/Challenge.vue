@@ -1,5 +1,11 @@
 <template>
 	<div v-if="challenge">
+		<b-alert
+			v-if="isAdmin"
+			show
+			variant="success">
+			You are the Admin for this Challenge.
+		</b-alert>
 		<b-btn
 			variant="primary"
 			size="sm"
@@ -27,6 +33,13 @@
 			</strong>
 			{{ new Date(challenge.dateTill).toLocaleDateString() }}
 		</p>
+		<hr>
+		<b-button
+			v-if="isAdmin"
+			variant="outline-success"
+			class="mb-3">
+			Invite new User
+		</b-button>
 		<h4>Users in Challenge:</h4>
 		<span
 			v-for="user in challenge.users"
@@ -38,7 +51,7 @@
 
 <script>
 	import gql from 'graphql-tag';
-	import isExpired from './helper/isExpired';
+	import isExpired from '../helper/isExpired';
 	import UserBtn from './UserBtn.vue';
 
 	export default {
@@ -51,6 +64,16 @@
 				challenge: '',
 			};
 		},
+		computed: {
+			isAdmin() {
+				if ( this.challenge ) {
+					const admin =
+						this.$store.getters.currentUser.user._id === this.challenge.adminID;
+					return admin;
+				}
+				return '';
+			},
+		},
 		methods: {
 			isExpired,
 		},
@@ -60,6 +83,7 @@
 					query: gql` query challenge($id: String!) {
 							challenge(id: $id) {
 								name
+								adminID
 								bannerImg
 								dateFrom
 								dateTill

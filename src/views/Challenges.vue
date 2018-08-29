@@ -1,7 +1,16 @@
 <template>
 	<div>
+		<b-button
+			to="/create-challenge"
+			variant="outline-success"
+			size="sm"
+			class="mb-4">
+			Create a new Challenge
+		</b-button>
 		<h2>All Challenges:</h2>
-		<p v-if="loading"/>
+		<p v-if="loading">
+			Loading...
+		</p>
 		<div
 			v-for="value in challenges"
 			:key="value._id"
@@ -38,10 +47,10 @@
 
 <script>
 	import allChallenges from '@/Queries/allChallenges';
-	import isExpired from './helper/isExpired';
+	import isExpired from '../helper/isExpired';
 
 	export default {
-		name: 'Challanges',
+		name: 'Challenges',
 		data() {
 			return {
 				challenges: '',

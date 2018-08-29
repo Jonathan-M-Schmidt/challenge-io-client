@@ -5,7 +5,8 @@ import Home from './views/Home.vue';
 import About from './views/About.vue';
 import Friends from './components/Friends.vue';
 import Challenge from './components/Challenge.vue';
-import Challenges from './components/Challenges.vue';
+import Challenges from './views/Challenges.vue';
+import CreateChallenge from './views/CreateChallenge.vue';
 import UserInfo from './views/UserInfo.vue';
 import NotFound from './views/NotFound.vue';
 
@@ -52,6 +53,12 @@ const router = new Router( {
 			path: '/challenge/:id',
 			name: 'challenge',
 			component: Challenge,
+			beforeEnter: authBeforeEnter,
+		},
+		{
+			path: '/create-challenge',
+			name: 'create-challenge',
+			component: CreateChallenge,
 			beforeEnter: authBeforeEnter,
 		},
 		{
