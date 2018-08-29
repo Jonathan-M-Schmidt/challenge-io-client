@@ -3,6 +3,7 @@ import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import BootstrapVue from 'bootstrap-vue';
@@ -20,8 +21,18 @@ const httpLink = new HttpLink( {
 	uri: 'http://localhost:3000/graphql',
 } );
 
+const authLink = setContext( ( _, { headers } ) => {
+	const token = localStorage.getItem( 'token' );
+	return {
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${ token }` : '',
+		},
+	};
+} );
+
 const apolloClient = new ApolloClient( {
-	link: httpLink,
+	link: authLink.concat( httpLink ),
 	cache: new InMemoryCache(),
 	connectToDevTools: true,
 } );

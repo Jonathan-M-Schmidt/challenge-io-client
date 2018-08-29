@@ -1,25 +1,26 @@
 <template>
 	<div class="home">
+		<!-- TODO: Change Logo -->
 		<img src="../assets/logo.png">
-		<HelloWorld msg="Welcome to Your Vue.js App" />
-		<div
+		<Welcome msg="Welcome to Your Vue.js App" />
+		<!-- <div
 			v-for="user in allUsers"
 			:key="user._id">
 			<p>{{ user.name }}</p>
 			<p>{{ user.email }}</p>
-		</div>
+		</div> -->
 	</div>
 </template>
 
 <script>
 // @ is an alias to /src
-	import HelloWorld from '@/components/HelloWorld.vue';
+	import Welcome from '@/components/Welcome.vue';
 	import allUsers from '@/Queries/allUsers.gql';
 
 	export default {
 		name: 'Home',
 		components: {
-			HelloWorld,
+			Welcome,
 		},
 		data() {
 			return {

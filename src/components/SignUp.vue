@@ -1,10 +1,26 @@
 <template>
 	<div>
+		<b-button
+			:variant="login ? 'secondary' : 'outline-secondary'"
+			size="sm"
+			class="mr-2"
+			@click="login = true">
+			Login
+		</b-button>
+		<b-button
+			:variant="!login ? 'secondary' : 'outline-secondary'"
+			size="sm"
+			@click="login = false">
+			Sign Up
+		</b-button>
+
 		<b-form
 			v-if="show"
+			class="mt-4"
 			@submit="onSubmit"
 			@reset="onReset">
 			<b-form-group
+				v-if="!login"
 				id="input-group-name"
 				label="Your Name:"
 				labelFor="input-name">
@@ -54,6 +70,7 @@
 
 <script>
 	import signUp from '@/Mutations/signUp.js';
+	import login from '@/Mutations/login.js';
 
 	export default {
 		data() {
@@ -63,6 +80,7 @@
 					name: '',
 					password: '',
 				},
+				login: false,
 				show: true,
 				response: '',
 			};
@@ -72,25 +90,45 @@
 				evt.preventDefault();
 				const { email, name, password } = this.form;
 
-				this.$apollo.mutate( {
-					mutation: signUp,
-					variables: {
-						email,
-						name,
-						password,
-					},
-				} ).then( ( { data } ) => {
-					if ( localStorage ) {
-						localStorage.setItem( 'token', data.userCreate.token );
-					}
-					this.show = false;
-					this.response = `Hello ${ data.userCreate.user.name },
+				if ( !this.login ) {
+					this.$apollo.mutate( {
+						mutation: signUp,
+						variables: {
+							email,
+							name,
+							password,
+						},
+					} ).then( ( { data } ) => {
+						this.$store.dispatch( 'login', data.userCreate.token );
+						this.$store.dispatch( 'setUser', data.userCreate.user );
+						this.show = false;
+						this.response = `Hello ${ data.userCreate.user.name },
 					thank you for creating an account!`;
-				} ).catch( ( error ) => {
-					console.log( error );
-					this.form.email = email;
-					this.form.name = name;
-				} );
+					} ).catch( ( error ) => {
+						this.response = error.message;
+						this.form.email = email;
+						this.form.name = name;
+					} );
+				} else if ( this.login ) {
+					this.$apollo.mutate( {
+						mutation: login,
+						variables: {
+							email,
+							password,
+						},
+					} ).then( ( { data } ) => {
+						this.$store.dispatch( 'login', data.login.token );
+						this.$store.dispatch( 'setUser', data.login.user );
+						this.$router.push( {
+							name: 'userinfo',
+							params: { id: data.login.user._id },
+						} );
+					} ).catch( ( error ) => {
+						this.response = error.message;
+						this.form.email = email;
+						this.form.name = name;
+					} );
+				}
 			},
 			onReset( evt ) {
 				evt.preventDefault();

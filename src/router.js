@@ -12,6 +12,7 @@ import UserInfo from './views/UserInfo.vue';
 Vue.use( Router );
 
 export default new Router( {
+	mode: 'history',
 	routes: [
 		{
 			path: '/',
@@ -44,7 +45,7 @@ export default new Router( {
 			component: Challenge,
 		},
 		{
-			path: '/user/:id',
+			path: '/user',
 			name: 'userinfo',
 			component: UserInfo,
 		},
