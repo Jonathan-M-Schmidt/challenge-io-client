@@ -69,6 +69,7 @@
 
 <script>
 	import createChallenge from '@/Mutations/createChallenge';
+	import allChallenges from '@/Queries/allChallenges';
 
 	export default {
 		name: 'CreateChallenge',
@@ -91,8 +92,21 @@
 				this.$apollo.mutate( {
 					mutation: createChallenge,
 					variables: this.form,
-				} ).then( ( data ) => {
-					console.log( data );
+					update: ( store, { data } ) => {
+						const result = store.readQuery( {
+							query: allChallenges,
+						} );
+						result.allChallenges.push( data.createChallenge );
+						store.writeQuery( {
+							query: allChallenges,
+							data: result,
+						} );
+					},
+				} ).then( ( { data } ) => {
+					this.$router.push( {
+						name: 'challenge',
+						params: { id: data.createChallenge._id },
+					} );
 				} ).catch( ( error ) => {
 					console.log( error );
 				} );

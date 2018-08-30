@@ -18,6 +18,13 @@ const createChallenge = gql`
 			description: $desc,
 		) {
 			_id
+			name
+			adminID
+			bannerImg
+			dateFrom
+			dateTill
+			description
+			users
 		}
 	}
 `;

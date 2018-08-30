@@ -1,7 +1,0 @@
-{
-	allUsers {
-		_id
-		name
-		email
-	}
-}
