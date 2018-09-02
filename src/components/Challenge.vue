@@ -24,6 +24,16 @@
 		</div>
 
 		<h1>{{ challenge.name }}</h1>
+		<span v-if="isInvited">
+			<h5>You are invited:</h5>
+			<b-button
+				size="sm"
+				variant="success"
+				class="mb-4"
+				@click="onAccept($store.getters.currentUser._id, challenge._id)">
+				Accept
+			</b-button>
+		</span>
 		<div
 			id="banner"
 			:style="{ backgroundImage: 'url(' + challenge.bannerImg+ ')' }"
@@ -85,9 +95,11 @@
 	import UserBtn from './UserBtn.vue';
 	import UserSelection from './UserSelection.vue';
 	import deleteChallenge from '../Mutations/deleteChallenge';
+	import acceptInvite from '../Mutations/acceptInvite';
 	import challenge from '../Queries/challenge';
 	import allChallenges from '../Queries/allChallenges';
 	import allUsers from '../Queries/allUsers';
+	import user from '../Queries/user';
 
 	export default {
 		name: 'Challenge',
@@ -97,6 +109,7 @@
 		},
 		data() {
 			return {
+				user: '',
 				challenge: '',
 				allUsers: '',
 				showModal: false,
@@ -107,16 +120,34 @@
 			isAdmin() {
 				if ( this.challenge ) {
 					const admin =
-						this.$store.getters.currentUser.user._id === this.challenge.adminID;
+						this.$store.getters.currentUser._id === this.challenge.adminID;
 					return admin;
 				}
 				return '';
+			},
+			isInvited() {
+				if ( !this.challenge || !this.user ) return '';
+				const invites = this.user.challengeInvites || [];
+				return invites.indexOf( this.challenge._id ) !== -1;
 			},
 		},
 		methods: {
 			isExpired,
 			onShowModal() {
 				this.showModal = true;
+			},
+			onAccept( userID, challengeID ) {
+				this.$apollo.mutate( {
+					mutation: acceptInvite,
+					variables: {
+						userID,
+						challengeID,
+					},
+				} ).then( ( { data } ) => {
+					this.$store.dispatch( 'setUser', data.acceptInvite );
+					this.$apollo.queries.user.refetch( { id: userID } );
+					this.$apollo.queries.challenge.refetch( { id: challengeID } );
+				} );
 			},
 			onDelete() {
 				const shouldDelete = confirm( 'Do you realy whant to delete this Challenge?' );
@@ -130,7 +161,9 @@
 							const result = store.readQuery( {
 								query: allChallenges,
 							} );
-							const newData = result.allChallenges.filter( chal => chal._id !== this.$route.params.id );
+							const newData = result
+								.allChallenges
+								.filter( chal => chal._id !== this.$route.params.id );
 							result.allChallenges = newData;
 							store.writeQuery( {
 								query: allChallenges,
@@ -147,6 +180,14 @@
 			},
 		},
 		apollo: {
+			user() {
+				return {
+					query: user,
+					variables: {
+						id: this.$store.getters.currentUser._id,
+					},
+				};
+			},
 			challenge() {
 				return {
 					query: challenge,

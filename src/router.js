@@ -62,10 +62,11 @@ const router = new Router( {
 			beforeEnter: authBeforeEnter,
 		},
 		{
-			path: '/user',
+			path: '/user/:id',
 			name: 'userinfo',
 			component: UserInfo,
 			beforeEnter: authBeforeEnter,
+			beforeRouterEnter: authBeforeEnter,
 		},
 	],
 } );

@@ -17,7 +17,10 @@ const user = gql`query ($id: String!) {
 			_id
 			name
 		}
-		challenges
+		challenges {
+			challenge_id
+			total_score
+		}
 		challengeInvites
 	}
 }`;

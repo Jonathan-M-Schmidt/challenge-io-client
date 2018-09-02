@@ -13,6 +13,8 @@ const login = gql`
 				name
 				email
 				_id
+				challengeInvites
+				challenges
 			},
 			token
 		}

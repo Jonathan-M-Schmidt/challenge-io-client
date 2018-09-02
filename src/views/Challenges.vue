@@ -12,7 +12,7 @@
 			Loading...
 		</p>
 		<div
-			v-for="value in challenges"
+			v-for="value in allChallenges"
 			:key="value._id"
 		>
 			<b-jumbotron
@@ -53,7 +53,7 @@
 		name: 'Challenges',
 		data() {
 			return {
-				challenges: '',
+				allChallenges: '',
 				loading: '',
 			};
 		},
@@ -61,16 +61,22 @@
 			isExpired,
 		},
 		apollo: {
-			allChallenges: {
-				query: allChallenges,
-				manual: true,
-				result( { data, loading } ) {
-					if ( loading ) {
-						this.loading = true;
-					} else {
-						this.challenges = data.allChallenges;
-					}
-				},
+			// allChallenges: {
+			// 	query: allChallenges,
+			// 	manual: true,
+			// 	result( { data, loading } ) {
+			// 		if ( loading ) {
+			// 			this.loading = true;
+			// 		} else {
+			// 			this.challenges = data.allChallenges;
+			// 		}
+			// 	},
+			// },
+			allChallenges() {
+				return {
+					query: allChallenges,
+					fetchPolicy: 'cache-and-network',
+				};
 			},
 		},
 	};

@@ -87,7 +87,7 @@
 		methods: {
 			onCreate( event ) {
 				event.preventDefault();
-				this.form.adminID = this.$store.getters.currentUser.user._id;
+				this.form.adminID = this.$store.getters.currentUser._id;
 
 				this.$apollo.mutate( {
 					mutation: createChallenge,

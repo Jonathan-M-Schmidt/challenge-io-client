@@ -105,7 +105,7 @@
 						this.response = `Hello ${ data.userCreate.user.name },
 					thank you for creating an account!`;
 					} ).catch( ( error ) => {
-						this.response = error.message;
+						this.response = error;
 						this.form.email = email;
 						this.form.name = name;
 					} );
@@ -119,12 +119,8 @@
 					} ).then( ( { data } ) => {
 						this.$store.dispatch( 'login', data.login.token );
 						this.$store.dispatch( 'setUser', data.login.user );
-						this.$router.push( {
-							name: 'userinfo',
-							params: { id: data.login.user._id },
-						} );
 					} ).catch( ( error ) => {
-						this.response = error.message;
+						this.response = error;
 						this.form.email = email;
 						this.form.name = name;
 					} );

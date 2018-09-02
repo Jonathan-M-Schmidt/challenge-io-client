@@ -11,7 +11,7 @@
 	import SignUp from '@/components/SignUp';
 
 	export default {
-		name: 'HelloWorld',
+		name: 'Welcome',
 		components: {
 			SignUp,
 		},
@@ -26,7 +26,7 @@
 				return this.$store.getters.isLoggedIn;
 			},
 			currentUserName() {
-				const { name } = this.$store.getters.currentUser.user;
+				const { name } = this.$store.getters.currentUser;
 				if ( !name ) return '';
 				return name;
 			},

@@ -27,7 +27,10 @@
 							v-if="isLoggedIn"
 							text="User"
 							right>
-							<b-dropdown-item to="/user">Account</b-dropdown-item>
+							<b-dropdown-item
+								:to="/user/ + $store.getters.currentUser._id">
+								Account
+							</b-dropdown-item>
 							<b-dropdown-item
 								@click="logout">
 								Logout
@@ -37,7 +40,6 @@
 				</b-collapse>
 			</b-navbar>
 		</div>
-
 		<div
 			class="container">
 			<b-btn
@@ -50,9 +52,9 @@
 				Back
 			</b-btn>
 			<b-badge
-				v-if="user && $route.path !== '/user'"
+				v-if="showBadge && $route.name !== 'userinfo'"
 				id="invites"
-				:to="'/user'"
+				:to="/user/ + $store.getters.currentUser._id"
 				variant="primary"
 				class="float-right"
 				pill>
@@ -65,13 +67,15 @@
 </template>
 
 <script>
-	import user from './Queries/user';
+	import userQuery from './Queries/user';
 
 	export default {
 		name: 'App',
 		data() {
 			return {
 				user: '',
+				error: '',
+				showBadge: false,
 			};
 		},
 		computed: {
@@ -79,10 +83,25 @@
 				return this.$store.getters.isLoggedIn;
 			},
 		},
+		watch: {
+			user() {
+				if ( this.user ) {
+					this.showBadge = true;
+				} else {
+					this.showBadge = false;
+				}
+			},
+		},
+		updated() {
+			if ( this.isLoggedIn ) {
+				this.$apollo.queries.user.refetch( { id: this.$store.getters.currentUser._id } );
+			}
+		},
 		methods: {
 			logout() {
 				this.$store.dispatch( 'logout' );
 				this.$router.push( '/' );
+				this.user = '';
 			},
 			goBack() {
 				this.$router.go( -1 );
@@ -90,15 +109,19 @@
 		},
 		apollo: {
 			user() {
-				if ( this.isLoggedIn ) {
-					return {
-						query: user,
-						variables: {
-							id: this.$store.getters.currentUser.user._id,
-						},
-					};
-				}
-				return {};
+				// if ( this.isLoggedIn ) {
+				return {
+					query: userQuery,
+					variables: {
+						id: this.$store.getters.currentUser._id,
+					},
+					error( error ) {
+						this.error = error;
+						console.log( error );
+					},
+				};
+				// }
+				// return '';
 			},
 		},
 	};
