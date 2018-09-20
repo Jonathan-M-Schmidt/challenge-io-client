@@ -22,3 +22,8 @@ if ( process.env.NODE_ENV === 'production' ) {
 		},
 	} );
 }
+
+window.addEventListener( 'beforeinstallprompt', ( event ) => {
+	console.log( 'before install prompt' );
+	event.prompt();
+} );

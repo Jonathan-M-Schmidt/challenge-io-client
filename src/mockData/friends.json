@@ -1,0 +1,56 @@
+[
+	{
+		"name": "John",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "john@gmail.com",
+		"bio": "John is a very sportive charackter who likes to compete"
+	},
+	{
+		"name": "Peter",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "peter@gmx.de",
+		"bio": "Peter is new to sports and needs the competition to stay motivated"
+	},
+	{
+		"name": "Max",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "max@web.de",
+		"bio": "Max tries to become a professional athlete"
+	},
+	{
+		"name": "John",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "john@gmail.com",
+		"bio": "John is a very sportive charackter who likes to compete"
+	},
+	{
+		"name": "Peter",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "peter@gmx.de",
+		"bio": "Peter is new to sports and needs the competition to stay motivated"
+	},
+	{
+		"name": "Max",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "max@web.de",
+		"bio": "Max tries to become a professional athlete"
+	},
+	{
+		"name": "John",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "john@gmail.com",
+		"bio": "John is a very sportive charackter who likes to compete"
+	},
+	{
+		"name": "Peter",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "peter@gmx.de",
+		"bio": "Peter is new to sports and needs the competition to stay motivated"
+	},
+	{
+		"name": "Max",
+		"img": "https://images.ecosia.org/nkRhOtd5j4VhX53W8qSydhBTmPk=/0x390/smart/http%3A%2F%2Fd22r54gnmuhwmk.cloudfront.net%2Fpublic%2Fimg%2Fdefault-user-avatar-dc6f2da9.gif",
+		"email": "max@web.de",
+		"bio": "Max tries to become a professional athlete"
+	}
+]
