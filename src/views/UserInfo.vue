@@ -1,12 +1,21 @@
 <template>
-	<div>
-		<div v-if="$apollo.loading">
-			<h2>Loading...</h2>
-		</div>
+	<div class="container">
 		<div v-if="user">
 			<h1>{{ user.name }}</h1>
 			<h4>{{ user.email }}</h4>
 			<hr class="my-2">
+			<span v-if="isCurrentUser">
+				<h4><span
+					:class="collapseButtonClasses"
+					@click="showCollapse = !showCollapse"/> Options:</h4>
+				<b-collapse
+					id="userCollapse"
+					v-model="showCollapse">
+					<p>Push-Notifications: {{ user.options.push_notifications }}</p>
+					<p>No Friends as Rivals: {{ user.options.allow_no_friend_rivals }}</p>
+				</b-collapse>
+				<hr>
+			</span>
 			<h4>Friends: {{ user.friends.length }}</h4>
 			<div
 				v-for="friend in user.friends"
@@ -37,7 +46,7 @@
 				</li>
 			</ul>
 
-			<span v-if="showInvites">
+			<span v-if="isCurrentUser">
 				<h4>Challenges invited to: {{ user.challengeInvites.length }} </h4>
 				<SmallChallengeInfo
 					v-for="challenge in user.challengeInvites"
@@ -87,10 +96,11 @@
 				id: this.$route.params.id,
 				error: '',
 				acceptedChallenges: '',
+				showCollapse: false,
 			};
 		},
 		computed: {
-			showInvites() {
+			isCurrentUser() {
 				return this.id === this.$store.getters.currentUser._id;
 			},
 			challengeIDs() {
@@ -105,6 +115,9 @@
 					return { ...challenge, ...this.user.challenges[ index ] };
 				} );
 			},
+			collapseButtonClasses() {
+				return this.showCollapse ? 'fas fa-arrow-circle-up' : 'fas fa-arrow-circle-down';
+			},
 		},
 		methods: {
 			onAccept( userID, challengeID ) {
@@ -114,7 +127,7 @@
 						userID,
 						challengeID,
 					},
-				} ).then( ( { data } ) => {
+				} ).then( ( ) => {
 					this.$apollo.queries.user.refetch( { id: userID } );
 				} );
 			},
@@ -161,7 +174,3 @@
 		},
 	};
 </script>
-
-<style>
-
-</style>

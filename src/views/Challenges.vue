@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container">
 		<b-button
 			to="/create-challenge"
 			variant="outline-success"
@@ -8,9 +8,6 @@
 			Create a new Challenge
 		</b-button>
 		<h2>All Challenges:</h2>
-		<p v-if="loading">
-			Loading...
-		</p>
 		<div
 			v-for="value in allChallenges"
 			:key="value._id"
@@ -54,34 +51,17 @@
 		data() {
 			return {
 				allChallenges: '',
-				loading: '',
 			};
 		},
 		methods: {
 			isExpired,
 		},
 		apollo: {
-			// allChallenges: {
-			// 	query: allChallenges,
-			// 	manual: true,
-			// 	result( { data, loading } ) {
-			// 		if ( loading ) {
-			// 			this.loading = true;
-			// 		} else {
-			// 			this.challenges = data.allChallenges;
-			// 		}
-			// 	},
-			// },
 			allChallenges() {
 				return {
 					query: allChallenges,
-					fetchPolicy: 'cache-and-network',
 				};
 			},
 		},
 	};
 </script>
-
-<style>
-
-</style>

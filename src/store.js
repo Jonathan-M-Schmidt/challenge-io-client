@@ -17,8 +17,7 @@ export default new Vuex.Store( {
 			state.user = '';
 		},
 		setUser( state, user ) {
-			const newUser = { ...state.user, ...user };
-			state.user = newUser;
+			state.user = user;
 		},
 	},
 	actions: {
@@ -36,11 +35,11 @@ export default new Vuex.Store( {
 			commit( 'logout' );
 		},
 		setUser( { commit }, user ) {
+			const newUser = { ...this.state.user, ...user };
 			if ( localStorage ) {
-				const newUser = { ...this.state.user, ...user };
 				localStorage.setItem( 'user', JSON.stringify( newUser ) );
 			}
-			commit( 'setUser', user );
+			commit( 'setUser', newUser );
 		},
 	},
 	getters: {

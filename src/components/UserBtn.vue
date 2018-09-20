@@ -10,6 +10,7 @@
 			<span v-else-if="data">
 				<b-btn
 					:to="'/user/' + data.user._id"
+					variant="outline-secondary"
 					class="m-1"
 					size="sm"
 				>
@@ -46,7 +47,3 @@
 		},
 	};
 </script>
-
-<style lang="scss" scoped>
-
-</style>

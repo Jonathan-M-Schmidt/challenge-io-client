@@ -7,10 +7,6 @@ module.exports = {
 	'airbnb-base',
     'plugin:vue/recommended',
   ],
-  /* rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }, */
   parserOptions: {
     parser: 'babel-eslint',
     sourceType: 'module',
@@ -22,13 +18,6 @@ module.exports = {
   rules: {
 		'filenames/match-regex': [ 2, '^([A-Za-z]+).(?:[A-Za-z]+)*$', true ],
 		'filenames/match-exported': 2,
-		// don't require .vue extension when importing
-		/* 'import/extensions': [ 'error', 'always', {
-			js: 'never',
-			vue: 'never',
-		} ], */
-		// disallow reassignment of function parameters
-		// disallow parameter object manipulation except for specific exclusions
 		'no-param-reassign': [ 'error', {
 			props: true,
 			ignorePropertyModificationsFor: [
@@ -38,14 +27,11 @@ module.exports = {
 			],
 		} ],
 		'no-underscore-dangle': 'off',
-		// allow optionalDependencies
 		'import/no-extraneous-dependencies': [ 'error', {
 			optionalDependencies: [ 'test/unit/index.js' ],
 		} ],
-		// allow debugger during development
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-		// Ventoro custom settings
 		"import/no-unresolved": "off",
 		indent: [ 2, 'tab' ],
 		'no-tabs': 0,
@@ -71,7 +57,6 @@ module.exports = {
 			closeBracket: 0,
 			alignAttributesVertically: true,
 		} ],
-		// TODO: change to 'always' and rename all attributes
 		'vue/attribute-hyphenation': [ 2, 'never' ],
 	},
 	overrides: [

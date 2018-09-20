@@ -1,6 +1,7 @@
 <template>
 	<div
 		id="app"
+		class="mb-2"
 	>
 		<div>
 			<b-navbar
@@ -22,10 +23,12 @@
 						<b-nav-item to="/about">About</b-nav-item>
 						<b-nav-item
 							v-if="isLoggedIn"
-							to="/challenges">Challenges</b-nav-item>
+							to="/challenges">
+							Challenges
+						</b-nav-item>
 						<b-nav-item-dropdown
-							v-if="isLoggedIn"
-							text="User"
+							v-if="isLoggedIn && currentUser"
+							:text="currentUser.name"
 							right>
 							<b-dropdown-item
 								:to="/user/ + $store.getters.currentUser._id">
@@ -40,40 +43,45 @@
 				</b-collapse>
 			</b-navbar>
 		</div>
-		<div
-			class="container">
+		<!-- <Loading v-if="!$apollo.data"/> -->
+		<div>
+			<div
+				v-if="$route.path === '/'"
+				class="logo">
+				<h1 >Challenge
+				<span class="serif">IO</span></h1>
+			</div>
 			<b-btn
 				v-if="$route.path !== '/'"
 				variant="outline-primary"
 				size="sm"
-				class="mb-1"
+				class="mb-1 ml-2"
 				@click="goBack">
 
 				Back
 			</b-btn>
-			<b-badge
-				v-if="showBadge && $route.name !== 'userinfo'"
-				id="invites"
-				:to="/user/ + $store.getters.currentUser._id"
-				variant="primary"
-				class="float-right"
-				pill>
-				Invites: {{ user.challengeInvites.length || 0 }}
-			</b-badge>
+			<Badge v-if="isLoggedIn && $route.name !== 'userinfo'"/>
 			<hr v-if="$route.path !== '/'">
-			<router-view :key="$route.fullPath"/>
+			<router-view
+				:key="$route.fullPath"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
-	import userQuery from './Queries/user';
+	import Loading from './components/Loading.vue';
+	import Badge from './components/Badge.vue';
 
 	export default {
 		name: 'App',
+		components: {
+			Loading,
+			Badge,
+		},
 		data() {
 			return {
-				user: '',
+				user: this.currentUser,
 				error: '',
 				showBadge: false,
 			};
@@ -81,6 +89,9 @@
 		computed: {
 			isLoggedIn() {
 				return this.$store.getters.isLoggedIn;
+			},
+			currentUser() {
+				return this.$store.getters.currentUser;
 			},
 		},
 		watch: {
@@ -91,11 +102,9 @@
 					this.showBadge = false;
 				}
 			},
-		},
-		updated() {
-			if ( this.isLoggedIn ) {
-				this.$apollo.queries.user.refetch( { id: this.$store.getters.currentUser._id } );
-			}
+			currentUser() {
+				this.user = this.currentUser;
+			},
 		},
 		methods: {
 			logout() {
@@ -105,23 +114,6 @@
 			},
 			goBack() {
 				this.$router.go( -1 );
-			},
-		},
-		apollo: {
-			user() {
-				// if ( this.isLoggedIn ) {
-				return {
-					query: userQuery,
-					variables: {
-						id: this.$store.getters.currentUser._id,
-					},
-					error( error ) {
-						this.error = error;
-						console.log( error );
-					},
-				};
-				// }
-				// return '';
 			},
 		},
 	};
@@ -148,5 +140,20 @@
 	position: fixed;
 	top:65px;
 	right:15px;
+}
+
+.serif {
+	font-family: 'Times New Roman', Times, serif;
+}
+.logo h1{
+	background-image: linear-gradient(to top right, #36afff, #dd35ff);
+	color: white;
+	font-size: 3.75em;
+	width: 100vw;
+	height: 35vh;
+	margin-bottom: 25px;
+	margin-top: 35px;
+	padding: 25px;
+	text-align: center;
 }
 </style>

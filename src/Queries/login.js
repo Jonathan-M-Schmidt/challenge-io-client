@@ -14,7 +14,10 @@ const login = gql`
 				email
 				_id
 				challengeInvites
-				challenges
+				challenges {
+					challenge_id
+					total_score
+				}
 			},
 			token
 		}

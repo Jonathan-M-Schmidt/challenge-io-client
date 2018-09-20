@@ -1,9 +1,12 @@
 <template>
 	<div class="hello">
 		<h2>{{ currentUserName ?
-			'Hello there, ' + currentUserName :
+			'Hello ' + currentUserName + ', welcome back!':
 		'Welcome to Challenge-io, please register or log in to continue.' }}</h2>
 		<SignUp v-if="!isLoggedIn"/>
+		<hr>
+		<p>If you are new here and don't know what this site is about,
+		take a look at the <b-link to="/about">About</b-link> page.</p>
 	</div>
 </template>
 
@@ -34,20 +37,3 @@
 	};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
